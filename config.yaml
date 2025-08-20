@@ -19,17 +19,11 @@ networks:
     start_block: 0
     contracts:
       - name: UniswapV2Factory
-        address:
-          - 0x0c3c1c532F1e39EdF36BE9Fe0bE1410313E074Bf
       - name: UniswapV2Pair
-        address:
   - id: 42161
     start_block: 0
     contracts:
       - name: UniswapV2Factory
-        address:
-          - 0xf1D7CC64Fb4452F05c498126312eBE29f30Fbcf9
       - name: UniswapV2Pair
-        address:
 unordered_multichain_mode: true
 preload_handlers: true

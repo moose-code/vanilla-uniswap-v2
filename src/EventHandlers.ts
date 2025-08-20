@@ -13,89 +13,104 @@ import {
   UniswapV2Pair_Transfer,
 } from "generated";
 
-// Register newly created pairs for indexing dynamically
-UniswapV2Factory.PairCreated.contractRegister(({ event, context }) => {
-  const pairAddress = event.params.pair.toLowerCase();
-  context.addUniswapV2Pair(pairAddress);
-});
+UniswapV2Factory.PairCreated.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Factory_PairCreated = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      token0: event.params.token0,
+      token1: event.params.token1,
+      pair: event.params.pair,
+      _3: event.params._3,
+    };
 
-UniswapV2Factory.PairCreated.handler(async ({ event, context }) => {
-  const entity: UniswapV2Factory_PairCreated = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    token0: event.params.token0,
-    token1: event.params.token1,
-    pair: event.params.pair,
-    _3: event.params._3,
-  };
+    context.UniswapV2Factory_PairCreated.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Factory_PairCreated.set(entity);
-});
+UniswapV2Pair.Approval.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Approval = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      owner: event.params.owner,
+      spender: event.params.spender,
+      value: event.params.value,
+    };
 
-UniswapV2Pair.Approval.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Approval = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    owner: event.params.owner,
-    spender: event.params.spender,
-    value: event.params.value,
-  };
+    context.UniswapV2Pair_Approval.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Pair_Approval.set(entity);
-});
+UniswapV2Pair.Burn.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Burn = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      sender: event.params.sender,
+      amount0: event.params.amount0,
+      amount1: event.params.amount1,
+      to: event.params.to,
+    };
 
-UniswapV2Pair.Burn.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Burn = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    sender: event.params.sender,
-    amount0: event.params.amount0,
-    amount1: event.params.amount1,
-    to: event.params.to,
-  };
+    context.UniswapV2Pair_Burn.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Pair_Burn.set(entity);
-});
+UniswapV2Pair.Mint.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Mint = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      sender: event.params.sender,
+      amount0: event.params.amount0,
+      amount1: event.params.amount1,
+    };
 
-UniswapV2Pair.Mint.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Mint = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    sender: event.params.sender,
-    amount0: event.params.amount0,
-    amount1: event.params.amount1,
-  };
+    context.UniswapV2Pair_Mint.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Pair_Mint.set(entity);
-});
+UniswapV2Pair.Swap.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Swap = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      sender: event.params.sender,
+      amount0In: event.params.amount0In,
+      amount1In: event.params.amount1In,
+      amount0Out: event.params.amount0Out,
+      amount1Out: event.params.amount1Out,
+      to: event.params.to,
+    };
 
-UniswapV2Pair.Swap.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Swap = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    sender: event.params.sender,
-    amount0In: event.params.amount0In,
-    amount1In: event.params.amount1In,
-    amount0Out: event.params.amount0Out,
-    amount1Out: event.params.amount1Out,
-    to: event.params.to,
-  };
+    context.UniswapV2Pair_Swap.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Pair_Swap.set(entity);
-});
+UniswapV2Pair.Sync.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Sync = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      reserve0: event.params.reserve0,
+      reserve1: event.params.reserve1,
+    };
 
-UniswapV2Pair.Sync.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Sync = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    reserve0: event.params.reserve0,
-    reserve1: event.params.reserve1,
-  };
+    context.UniswapV2Pair_Sync.set(entity);
+  },
+  { wildcard: true }
+);
 
-  context.UniswapV2Pair_Sync.set(entity);
-});
+UniswapV2Pair.Transfer.handler(
+  async ({ event, context }) => {
+    const entity: UniswapV2Pair_Transfer = {
+      id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
+      from: event.params.from,
+      to: event.params.to,
+      value: event.params.value,
+    };
 
-UniswapV2Pair.Transfer.handler(async ({ event, context }) => {
-  const entity: UniswapV2Pair_Transfer = {
-    id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    from: event.params.from,
-    to: event.params.to,
-    value: event.params.value,
-  };
-
-  context.UniswapV2Pair_Transfer.set(entity);
-});
+    context.UniswapV2Pair_Transfer.set(entity);
+  },
+  { wildcard: true }
+);
